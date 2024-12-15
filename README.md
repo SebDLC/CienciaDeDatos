@@ -113,4 +113,73 @@ El mayor porcentaje de valores nulos se concentra entonces entre las variables *
 
 ## *Imputacion de datos usando KNN*
 
-Luego de múltiples intentos, se llega a la conclusión de que el valor óptimo de vecinos para el modelo KNN es de 5.
+Se transformaron primeramente las variables categoricas **genero** y **etnia** a dummies.
+Posteriormente, se realizó la imputacion de los datos nulos usando KNN. Luego de múltiples intentos, se llegó a la conclusión de que el valor óptimo de vecinos para el modelo KNN es de 5.
+
+| estatura | peso  | ingresos | educacion | educacion_madre | educacion_padre | camina | ejercicio | fumador | tenso | malhumorado | edad | genero_masculino | etnia_Blanco | etnia_Latino | etnia_Other |
+|----------|-------|----------|-----------|-----------------|-----------------|--------|-----------|---------|-------|-------------|------|------------------|--------------|--------------|-------------|
+| 187.96   | 95.25 | 50000.0  | 16        | 16              | 16              | 3      | 3         | 2       | 0     | 0           | 45   | 1                | 1            | 0            | 0           |
+| 167.64   | 56.70 | 60000.0  | 16        | 16              | 16              | 6      | 5         | 1       | 0     | 0           | 58   | 0                | 1            | 0            | 0           |
+| 162.56   | 57.15 | 30000.0  | 16        | 16              | 16              | 8      | 1         | 2       | 1     | 1           | 29   | 0                | 1            | 0            | 0           |
+| 165.10   | 90.72 | 25000.0  | 17        | 17              | 16              | 8      | 1         | 2       | 0     | 0           | 57   | 0                | 1            | 0            | 0           |
+| 160.02   | 49.90 | 50000.0  | 16        | 16              | 16              | 5      | 6         | 2       | 0     | 0           | 91   | 0                | 0            | 0            | 1           |
+
+Valores nulos posterior a la imputación por KNN
+
+| Variable           | Valor |
+|--------------------|-------|
+| estatura           | 0     |
+| peso               | 0     |
+| ingresos           | 0     |
+| educacion          | 0     |
+| educacion_madre    | 0     |
+| educacion_padre    | 0     |
+| camina             | 0     |
+| ejercicio          | 0     |
+| fumador            | 0     |
+| tenso              | 0     |
+| malhumorado        | 0     |
+| edad               | 0     |
+| genero_masculino   | 0     |
+| etnia_Blanco       | 0     |
+| etnia_Latino       | 0     |
+| etnia_Other        | 0     |
+
+## Regresión Lasso para la seleccion de variables
+
+### Resultados del Entrenamiento y Prueba
+
+- **Entrenamiento**  
+  - MSE: 420498506.06712383  
+  - R²: 0.16095756408982054
+
+- **Prueba**  
+  - MSE: 408924310.85877055  
+  - R²: 0.2385311145200868
+
+### Resumen del Modelo
+
+| Modelo           | MSE            | R²       |
+|------------------|----------------|----------|
+| Regresión Lasso  | 4.089243e+08   | 0.238531 |
+
+**El mejor valor de alpha es**: 10  
+**Mejor penalización**: Lasso(alpha=10)
+
+### Coeficientes del Modelo Lasso
+
+| variables        | coeficientes   |
+|------------------|----------------|
+| estatura         | 552.599663     |
+| peso             | 5.721357       |
+| educacion        | 2190.492669    |
+| educacion_madre  | -350.522581    |
+| educacion_padre  | 663.244331     |
+| camina           | -46.667750     |
+| ejercicio        | 627.158541     |
+| fumador          | -1129.360585   |
+| tenso            | -17.626880     |
+| malhumorado      | -0.000000      |
+| edad             | 222.014352     |
+
+Se observa que el coeficiente de la variable **malhumorado** es cero, por lo tanto, no aporta al modelo.
