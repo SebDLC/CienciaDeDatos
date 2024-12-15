@@ -215,3 +215,30 @@ print(nan2)
 | edad             | 222.014352     |
 
 Se observa que el coeficiente de la variable **malhumorado** es cero, por lo tanto, no aporta al modelo.
+
+## *Modelos*
+
+Se realizaron 5 modelos:
+
+```bash
+X = original_data[col_incluir].copy()
+y = original_data['ingresos']
+```
+
+| Modelo                     | MAE          | MSE           | RMSE         | R2       |
+|----------------------------|--------------|---------------|--------------|----------|
+| Regresión Lineal           | 12884.547538 | 3.676784e+08  | 19174.941189 | 0.188313 |
+| Regresión Polinomial G2    | 12563.331557 | 3.637640e+08  | 19072.598731 | 0.196954 |
+| Regresión Ridge            | 12887.214740 | 3.675216e+08  | 19170.853498 | 0.188659 |
+| Regresión Lasso            | 12875.051678 | 3.673782e+08  | 19167.111446 | 0.188976 |
+| Regresión Elastic Net      | 12927.332372 | 3.684739e+08  | 19195.673847 | 0.186557 |
+
+El mejor modelo de predicción es el modelo de **Regresion Polinomial G2**
+
+```bash
+df_metricas[df_metricas['RMSE'] == df_metricas['RMSE'].min()]
+```
+
+| Modelo                  | MAE          | MSE           | RMSE         | R2       |
+|-------------------------|--------------|---------------|--------------|----------|
+| Regresión Polinomial G2 | 12563.331557 | 3.637640e+08  | 19072.598731 | 0.196954 |
