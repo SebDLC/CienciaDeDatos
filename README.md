@@ -242,3 +242,59 @@ df_metricas[df_metricas['RMSE'] == df_metricas['RMSE'].min()]
 | Modelo                  | MAE          | MSE           | RMSE         | R2       |
 |-------------------------|--------------|---------------|--------------|----------|
 | Regresión Polinomial G2 | 12563.331557 | 3.637640e+08  | 19072.598731 | 0.196954 |
+
+*** PCA ***
+```bash
+data_scaled_df = pd.DataFrame(data_scaled, columns=original_data.columns)
+```
+
+## Correlacion de Pearson
+
+```bash
+matriz_corr = data_scaled_df.corr(method="pearson")
+```
+
+## Prueba esferidad de Bartlet 
+
+Resultado: P-value: 0.0
+
+El resultado muestra que p < 0,05, es decir que tenemos evidencias para rechazar la hipótesis nula, por lo tanto podemos decir que variables están correlacionadas. En otras palabras podemos llevar a cabo un proceso de reducción de dimensionalidad
+
+## Indice KMO de Kaiser-Meyer-Olkin
+
+![alt text](image.png)
+
+```bash
+autovalores_kaiser
+```
+`array([3.07682362, 2.32165498, 1.97401989, 1.63461215, 1.22647007, 1.06545957, 1.01800759, 0.92797759, 0.80330536])`
+
+Bajo este criterio debemos trabajar con 9 componentes
+
+```bash
+matriz_var_expl
+```
+
+| pct_var_expl | pct_var_expl_acum |
+|--------------|-------------------|
+| 19.230148    | 19.230148         |
+| 14.510344    | 33.740491         |
+| 12.337624    | 46.078116         |
+| 10.216326    | 56.294441         |
+| 7.665438     | 63.959879         |
+| 6.659122     | 70.619002         |
+| 6.362547     | 76.981549         |
+| 5.799860     | 82.781409         |
+| 5.020659     | 87.802068         |
+
+Estas 9 variables explican el **87,8%** de la varianza total de la data original.
+
+*Supuestos PCA*
+
+- Linealidad: Se asume que las relaciones entre las variables son lineales.
+
+- Normalidad: Aunque no es estrictamente necesario, es ideal que las variables sigan distribuciones normales para una interpretación más precisa.
+
+- Escalado: Las variables deben estar estandarizadas (media 0, desviación estándar 1) para evitar que las variables con mayor magnitud dominen los resultados.
+
+- Independencia: Las componentes principales resultantes deben ser no correlacionadas entre sí (ortogonales).
