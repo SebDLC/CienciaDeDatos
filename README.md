@@ -179,40 +179,11 @@ print(nan2)
 
 ## Regresión Lasso para la seleccion de variables
 
-### Resultados del Entrenamiento y Prueba
-
-- **Entrenamiento**  
-  - MSE: 420498506.06712383  
-  - R²: 0.16095756408982054
-
-- **Prueba**  
-  - MSE: 408924310.85877055  
-  - R²: 0.2385311145200868
-
 ### Resumen del Modelo
 
-| Modelo           | MSE            | R²       |
-|------------------|----------------|----------|
-| Regresión Lasso  | 4.089243e+08   | 0.238531 |
-
-**El mejor valor de alpha es**: 10  
-**Mejor penalización**: Lasso(alpha=10)
-
-### Coeficientes del Modelo Lasso
-
-| variables        | coeficientes   |
-|------------------|----------------|
-| estatura         | 552.599663     |
-| peso             | 5.721357       |
-| educacion        | 2190.492669    |
-| educacion_madre  | -350.522581    |
-| educacion_padre  | 663.244331     |
-| camina           | -46.667750     |
-| ejercicio        | 627.158541     |
-| fumador          | -1129.360585   |
-| tenso            | -17.626880     |
-| malhumorado      | -0.000000      |
-| edad             | 222.014352     |
+```bash
+df_sel_var[df_sel_var['coeficientes']==0]
+```
 
 Se observa que el coeficiente de la variable **malhumorado** es cero, por lo tanto, no aporta al modelo.
 
@@ -256,7 +227,12 @@ matriz_corr = data_scaled_df.corr(method="pearson")
 
 ## Prueba esferidad de Bartlet 
 
-Resultado: P-value: 0.0
+**Resultado:**
+```bash
+print(f'P-value: {pvalue}')
+```
+
+P-value: 0.0
 
 El resultado muestra que p < 0,05, es decir que tenemos evidencias para rechazar la hipótesis nula, por lo tanto podemos decir que variables están correlacionadas. En otras palabras podemos llevar a cabo un proceso de reducción de dimensionalidad
 
