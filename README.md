@@ -32,6 +32,10 @@ fumador: Fuma 7 cigarros o más a la semana
 
 ### Visualizacion de los primeros 3 datos del dataset
 
+```bash
+  data.head(3)
+```
+
 |   estatura |   peso | genero    |   ingresos | etnia   |   educacion |   educacion_madre |   educacion_padre |   camina |   ejercicio |   fumador |   tenso |   malhumorado |   edad |
 |-----------:|-------:|:----------|-----------:|:--------|------------:|------------------:|------------------:|---------:|------------:|----------:|--------:|--------------:|-------:|
 |     187.96 |  95.25 | masculino |      50000 | Blanco  |          16 |                16 |                16 |        3 |           3 |         2 |       0 |             0 |     45 |
@@ -41,6 +45,10 @@ fumador: Fuma 7 cigarros o más a la semana
 ### Descripcion de los datos:
 
 A partir de la siguiente tabla descriptiva:
+
+```bash
+  data.describe().T
+```
 
 |                 |   count |        mean |          std |    min |     25% |      50% |       75% |       max |
 |:----------------|--------:|------------:|-------------:|-------:|--------:|---------:|----------:|----------:|
@@ -70,6 +78,10 @@ Nada particularmente llamativo, por lo tanto continua el analisis.
 
 ### Visualizacion tipo de datos por columna:
 
+```bash
+  print(data.dtypes)
+```
+
 |                 | 0       |
 |:----------------|:--------|
 | estatura        | float64 |
@@ -90,6 +102,11 @@ Nada particularmente llamativo, por lo tanto continua el analisis.
 Los tipos de datos también están leídos correctamente.
 
 ### Datos nulos (conteo de valores faltantes):
+
+```bash
+  nan = data.isna().sum()
+print(nan)
+```
 
 |                 |   0 |
 |:----------------|----:|
@@ -114,7 +131,17 @@ El mayor porcentaje de valores nulos se concentra entonces entre las variables *
 ## *Imputacion de datos usando KNN*
 
 Se transformaron primeramente las variables categoricas **genero** y **etnia** a dummies.
+
+```bash
+col_for_dummies = data.select_dtypes(object).columns
+data = pd.get_dummies(data, col_for_dummies, dtype=int, drop_first=True)
+```
+
 Posteriormente, se realizó la imputacion de los datos nulos usando KNN. Luego de múltiples intentos, se llegó a la conclusión de que el valor óptimo de vecinos para el modelo KNN es de 5.
+
+```bash
+original_data.head()
+```
 
 | estatura | peso  | ingresos | educacion | educacion_madre | educacion_padre | camina | ejercicio | fumador | tenso | malhumorado | edad | genero_masculino | etnia_Blanco | etnia_Latino | etnia_Other |
 |----------|-------|----------|-----------|-----------------|-----------------|--------|-----------|---------|-------|-------------|------|------------------|--------------|--------------|-------------|
@@ -125,6 +152,11 @@ Posteriormente, se realizó la imputacion de los datos nulos usando KNN. Luego d
 | 160.02   | 49.90 | 50000.0  | 16        | 16              | 16              | 5      | 6         | 2       | 0     | 0           | 91   | 0                | 0            | 0            | 1           |
 
 Valores nulos posterior a la imputación por KNN
+
+```bash
+nan2 = original_data.isna().sum()
+print(nan2)
+```
 
 | Variable           | Valor |
 |--------------------|-------|
